@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/schedule.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/button.css">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:insert="~{/common/nav}"></th:block>
+
+<div class="container py-9 py-lg-11 position-relative z-index-1" id="outer">
+    <div class="row">
+        <div class="col-lg-5 mb-5 mb-lg-0">
+            <h5 class="mb-4  aos-init aos-animate" data-aos="fade-up" id="headTitle">Schedule</h5>
+            <div class="nav nav-pills flex-column aos-init aos-animate" id="myTab" role="tablist" data-aos="fade-up">
+
+                <button class="nav-link px-4 text-start" id="d2-tab" data-bs-toggle="tab" data-bs-target="#day2" type="button" role="tab" aria-controls="day2" aria-selected="false" tabindex="-1">
+                    <span class="d-block fs-5 fw-bold">Monday</span>
+                    <span class="small" id="mon">Monday</span>
+                </button>
+                <button class="nav-link px-4 text-start" id="d3-tab" data-bs-toggle="tab" data-bs-target="#day3" type="button" role="tab" aria-controls="day3" aria-selected="false" tabindex="-1">
+                    <span class="d-block fs-5 fw-bold">Tuesday</span>
+                    <span class="small" id="tue">Tuesday</span>
+                </button>
+                <button class="nav-link px-4 text-start" id="d4-tab" data-bs-toggle="tab" data-bs-target="#day4" type="button" role="tab" aria-controls="day4" aria-selected="false" tabindex="-1">
+                    <span class="d-block fs-5 fw-bold">Wednesday</span>
+                    <span class="small" id="wed">Wednesday</span>
+                </button>
+                <button class="nav-link px-4 text-start" id="d5-tab" data-bs-toggle="tab" data-bs-target="#day5" type="button" role="tab" aria-controls="day5" aria-selected="false" tabindex="-1">
+                    <span class="d-block fs-5 fw-bold">Thursday</span>
+                    <span class="small" id="thu">Thursday</span>
+                </button>
+                <button class="nav-link px-4 text-start" id="d6-tab" data-bs-toggle="tab" data-bs-target="#day6" type="button" role="tab" aria-controls="day6" aria-selected="false" tabindex="-1">
+                    <span class="d-block fs-5 fw-bold">Friday</span>
+                    <span class="small" id="fri">Friday</span>
+                </button>
+                <button class="nav-link px-4 text-start" id="d7-tab" data-bs-toggle="tab" data-bs-target="#day7" type="button" role="tab" aria-controls="day7" aria-selected="false" tabindex="-1">
+                    <span class="d-block fs-5 fw-bold">Saturday</span>
+                    <span class="small" id="sat">Saturday</span>
+                </button>
+                <button class="nav-link px-4 text-start" id="d1-tab" data-bs-toggle="tab" data-bs-target="#day1" type="button" role="tab" aria-controls="day1" aria-selected="false" tabindex="-1">
+                    <span class="d-block fs-5 fw-bold">Sunday</span>
+                    <span class="small" id="sun">Sunday</span>
+                </button>
+
+            </div>
+        </div>
+        <div class="col-lg-7 col-xl-6">
+            <div data-aos="fade-up" class="tab-content aos-init aos-animate" id="myTabContent">
+
+
+
+
+                <!--월요일-->
+                <div class="tab-pane fade" id="day2" role="tabpanel" aria-labelledby="d2-tab">
+                    <ul class="pt-4 list-unstyled mb-0" id="monday">
+
+                    </ul>
+                </div>
+                <!--월요일-->
+
+                <!--화요일-->
+                <div class="tab-pane fade" id="day3" role="tabpanel" aria-labelledby="d3-tab">
+                    <ul class="pt-4 list-unstyled mb-0" id="tuesday">
+
+                    </ul>
+                </div>
+
+                <!--화요일-->
+
+                <!--수요일-->
+                <div class="tab-pane fade" id="day4" role="tabpanel" aria-labelledby="d4-tab">
+                    <ul class="pt-4 list-unstyled mb-0" id="wednesday">
+
+                    </ul>
+                </div>
+
+                <!--수요일-->
+
+                <!--목요일-->
+                <div class="tab-pane fade" id="day5" role="tabpanel" aria-labelledby="d5-tab">
+                    <ul class="pt-4 list-unstyled mb-0" id="thursday">
+
+                    </ul>
+                </div>
+                <!--목요일-->
+
+                <!--금요일-->
+                <div class="tab-pane fade" id="day6" role="tabpanel" aria-labelledby="d6-tab">
+                    <ul class="pt-4 list-unstyled mb-0" id="friday">
+
+                    </ul>
+                </div>
+                <!--금요일-->
+
+                <!--토요일-->
+                <div class="tab-pane fade" id="day7" role="tabpanel" aria-labelledby="d7-tab">
+                    <ul class="pt-4 list-unstyled mb-0" id="saturday">
+
+                    </ul>
+                </div>
+                <!--토요일-->
+
+                <!--일요일-->
+                <div class="tab-pane fade" id="day1" role="tabpanel" aria-labelledby="d1-tab">
+                    <ul class="pt-4 list-unstyled mb-0" id="sunday">
+
+                    </ul>
+                </div>
+
+                <!--일요일-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal -->
+
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/schedule.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"></script>
+
+</body>
+</html>

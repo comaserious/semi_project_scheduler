@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javaclass.schedule_practice.model.Mapper">
+    <resultMap id="injuryMap" type="com.javaclass.schedule_practice.model.InjuryDTO">
+        <id property="injuryCode" column="injury_code"/>
+        <result property="injuryName" column="injury_name"/>
+        <result property="fieldCode" column="field_code"/>
+    </resultMap>
+    <resultMap id="timeMap" type="com.javaclass.schedule_practice.model.TimeDTO">
+        <id property="timeCode" column="time_code"/>
+        <result property="timeVal" column="time_val"/>
+    </resultMap>
+    <resultMap id="mediInfoMap" type="com.javaclass.schedule_practice.model.MediInfoDTO">
+        <id property="mediCode" column="medi_code"/>
+        <result property="mediDate" column="medi_date"/>
+        <result property="projectNo" column="project_no"/>
+        <result property="timeCode" column="time_code"/>
+        <result property="mediStatus" column="medi_status"/>
+        <result property="day" column="day"/>
+        <association property="timeDTO" resultMap="timeMap"/>
+
+    </resultMap>
+    <resultMap id="patientMap" type="com.javaclass.schedule_practice.model.PatientDTO">
+        <id property="patientNo" column="patient_no"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="gender" column="gender"/>
+        <result property="height" column="height"/>
+        <result property="weight" column="weight"/>
+        <result property="phone" column="phone"/>
+        <result property="agree" column="agree"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <resultMap id="projectMap" type="com.javaclass.schedule_practice.model.ProjectDTO">
+        <id property="projectNo" column="project_no"/>
+        <result property="patientNo" column="patient_no"/>
+        <result property="pmCode" column="pm_code"/>
+        <result property="injuryCode" column="injury_code"/>
+        <result property="theraCode" column="thera_code"/>
+        <result property="projectStatus" column="project_status"/>
+        <association property="injuryDTO" resultMap="injuryMap"/>
+        <association property="patientDTO" resultMap="patientMap"/>
+        <collection property="mediInfoList" resultMap="mediInfoMap"/>
+    </resultMap>
+
+    <resultMap id="scheduleMap" type="com.javaclass.schedule_practice.model.ScheduleDTO">
+        <id property="pmCode" column="pm_code"/>
+        <collection property="projects" resultMap="projectMap"/>
+    </resultMap>
+
+    <select id="findSome" resultMap="scheduleMap" parameterType="hashmap">
+        select
+            a.project_no,
+            a.pm_code,
+            i.injury_name,
+            p.name,
+            p.age,
+            m.medi_date,
+            t.time_val,
+            dayofweek(m.medi_date) as 'day'
+        from
+            project a
+        join
+            patient p
+        on
+            a.patient_no = p.patient_no
+        join
+            medi_info m on a.project_no = m.project_no
+        join
+            res_time t on m.time_code = t.time_code
+        join
+            injury i on a.injury_code = i.injury_code
+        where
+            a.pm_code = #{pmCode}
+        and
+            m.medi_date between #{startDay} and #{endDay}
+        order by
+        m.medi_date
+        and
+        t.time_val
+    </select>
+</mapper>
