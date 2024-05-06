@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-datepicker.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/date.css">
     <link href="/assets/css/schedule.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/button.css">
     <title>Title</title>
 </head>
 <body>
 <th:block th:insert="~{/common/nav}"></th:block>
+<div>
+<div class="searchdate">
+    <form action="">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control dateselect" placeholder="find reservation" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+        </div>
+    </form>
+</div>
 
 <div class="container py-9 py-lg-11 position-relative z-index-1" id="outer">
     <div class="row">
@@ -138,11 +149,15 @@
         </div>
     </div>
 </div>
-<script src="/assets/js/schedule.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript"></script>
 
 </body>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script> <!-- jQuery 1.10.2 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap 5.2.0 -->
+<script src="/assets/js/schedule.js"></script> <!-- Your custom schedule script -->
+<script src="/assets/js/bootstrap-datepicker.js"></script> <!-- Bootstrap Datepicker -->
+<script src="/assets/js/date.js"></script> <!-- Date.js -->
+<script src="/assets/js/bootstrap.js"></script> <!-- Bootstrap -->
+
 </html>

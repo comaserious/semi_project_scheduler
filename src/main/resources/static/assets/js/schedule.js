@@ -95,8 +95,8 @@ function makeSchedule(day,start,end,name,injury,age){
     const $ele = document.createElement('li');
     $ele.classList.add('d-flex', 'flex-column', 'flex-md-row', 'py-4');
     $ele.innerHTML=
-        `<span class="flex-shrink-0 width-13x me-md-4 d-block mb-3 mb-md-0 small text-muted">${start} - ${end}</span>
-             <div class="flex-grow-1 ps-4 border-start border-3">
+        `<span class="flex-shrink-0 width-13x me-md-4 d-block mb-3 mb-md-0 small text-black">${start} - ${end}</span>
+             <div class="flex-grow-1 ps-4 border-start border-3" style="color: black">
                  <button class="button-6" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: flex; flex-direction: column;">
                  <h4>${name}</h4>
                  <p class="mb-0">
@@ -126,4 +126,6 @@ function ending(start){
     const newTimeVal = hours.toString().padStart(2, "0") + ":" + minutes.toString().padStart(2, "0");
     return newTimeVal;
 }
+
+
 

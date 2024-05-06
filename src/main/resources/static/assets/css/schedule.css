@@ -1,8 +1,25 @@
 #outer{
     margin-left: 15vw;
     margin-top: 15vh;
+    width: 80vw;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
 }
 #headTitle{
     font-weight: bold;
     font-size: xx-large;
+}
+
+
+body{
+    background-color: rgb(215, 214, 214);
+}
+
+.searchdate{
+    position: absolute;
+    margin-top: -10vh;
+    margin-left: 70vw;
+    display: flex;
+    gap: 10px;
 }
