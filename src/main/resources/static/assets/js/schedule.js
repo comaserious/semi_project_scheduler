@@ -52,28 +52,48 @@ fetch("/setSchedule")
            const dayNum = m.day;
            switch (dayNum){
                case 1:
-                    console.log('여기로 몇놈이 오는거여')
-                   makeSchedule(day1,start,end,name,injury,age);
+
+                   makeSchedule(day1,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
                    break;
                case 2:
-                   makeSchedule(day2,start,end,name,injury,age);
+                   makeSchedule(day2,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
                    break;
                case 3:
-                   makeSchedule(day3,start,end,name,injury,age);
+                   makeSchedule(day3,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
                    break;
                case 4:
-                   makeSchedule(day4,start,end,name,injury,age);
+                   makeSchedule(day4,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
                    break;
                case 5:
-                   makeSchedule(day5,start,end,name,injury,age);
+                   makeSchedule(day5,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
                    break;
                case 6:
-                   makeSchedule(day6,start,end,name,injury,age);
+                   makeSchedule(day6,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
                    break;
                case 7:
-                   makeSchedule(day7,start,end,name,injury,age);
+                   makeSchedule(day7,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
                    break;
            }
+
+        })
+
+
+
+    })
+    const $modalButton = document.querySelectorAll('.button-6');
+
+    $modalButton.forEach(b=>{
+        b.addEventListener('click',e=>{
+
+            const text = b.firstElementChild.textContent;
+           $patientName.value=text;
+            const timeCode = b.classList;
+
+            const val = timeCode[1].split("-")[1];
+            $time.value=val;
+
+            const date = timeCode[2].split("/")[1];
+            $date.value=date;
 
         })
     })
@@ -91,21 +111,22 @@ function increaseDateByOneDay(dateString) {
 }
 
 
-function makeSchedule(day,start,end,name,injury,age){
+function makeSchedule(day,start,end,name,injury,age,timeCode,mediDate){
     const $ele = document.createElement('li');
     $ele.classList.add('d-flex', 'flex-column', 'flex-md-row', 'py-4');
     $ele.innerHTML=
-        `<span class="flex-shrink-0 width-13x me-md-4 d-block mb-3 mb-md-0 small text-black">${start} - ${end}</span>
+        `<span class="flex-shrink-0 width-13x me-md-4 d-block mb-3 mb-md-0 small text-black ">${start} - ${end}</span>
              <div class="flex-grow-1 ps-4 border-start border-3" style="color: black">
-                 <button class="button-6" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: flex; flex-direction: column;">
-                 <h4>${name}</h4>
-                 <p class="mb-0">
-                 부상명 : ${injury}<br>
-                 나이 : ${age}
-                 </p>
+                 <button class="button-6 timecode-${timeCode} date/${mediDate}" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: flex; flex-direction: column;">
+                    <h4>${name}</h4>
+                    <p class="mb-0">
+                        부상명 : ${injury}<br>
+                        나이 : ${age}
+                    </p>
                  </button>
              </div>`
     day.appendChild($ele);
+
 }
 
 function ending(start){
@@ -128,4 +149,18 @@ function ending(start){
 }
 
 
-
+const $modalPage = document.getElementById('exampleModal');
+const $patientName = document.getElementById('patientName');
+const $time =document.getElementById('reservationTime');
+const $date = document.getElementById('reservationDate');
+fetch("/allprojects")
+    .then(res=>res.json())
+    .then(data=>{
+        console.table(data);
+        data.forEach(p=>{
+            const $option = document.createElement('option');
+            $option.textContent=`${p.patientDTO.name}`;
+            $option.value=`${p.patientDTO.name}`;
+            $patientName.appendChild($option);
+        })
+    })

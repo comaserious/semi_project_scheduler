@@ -5,6 +5,9 @@
     border-radius: 5px;
     background-color: white;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
+
 }
 #headTitle{
     font-weight: bold;
@@ -16,10 +19,23 @@ body{
     background-color: rgb(215, 214, 214);
 }
 
+/*.searchdate{*/
+/*    position: absolute;*/
+/*    margin-top: -10vh;*/
+/*    margin-left: 70vw;*/
+/*    display: flex;*/
+/*    gap: 10px;*/
+/*}*/
+
 .searchdate{
-    position: absolute;
-    margin-top: -10vh;
-    margin-left: 70vw;
-    display: flex;
-    gap: 10px;
+    width: 20%;
+    /*margin-left: 80vw;*/
+    align-self: flex-end;
+
 }
+
+.custom-title{
+    font-size: 25px;
+    font-weight: bold;
+}
+

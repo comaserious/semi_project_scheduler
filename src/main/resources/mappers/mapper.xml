@@ -58,6 +58,7 @@
             p.name,
             p.age,
             m.medi_date,
+            t.time_code,
             t.time_val,
             dayofweek(m.medi_date) as 'day'
         from
@@ -80,5 +81,31 @@
         m.medi_date
         and
         t.time_val
+    </select>
+
+    <select id="allProjects" resultMap="projectMap" parameterType="string">
+        select
+            a.project_no,
+            a.pm_code,
+            i.injury_name,
+            p.name,
+            p.age,
+            m.medi_date,
+            t.time_code,
+            t.time_val
+        from
+            project a
+        join
+            patient p
+        on
+            a.patient_no = p.patient_no
+        join
+            medi_info m on a.project_no = m.project_no
+        join
+            res_time t on m.time_code = t.time_code
+        join
+            injury i on a.injury_code = i.injury_code
+        where
+            a.pm_code = #{pmCode};
     </select>
 </mapper>

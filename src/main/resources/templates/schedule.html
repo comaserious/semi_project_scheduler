@@ -11,18 +11,21 @@
     <title>Title</title>
 </head>
 <body>
-<th:block th:insert="~{/common/nav}"></th:block>
-<div>
-<div class="searchdate">
-    <form action="">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control dateselect" placeholder="find reservation" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-        </div>
-    </form>
-</div>
+    <div class="nav">
+        <th:block th:insert="~{/common/nav}"></th:block>
+    </div>
+
+
 
 <div class="container py-9 py-lg-11 position-relative z-index-1" id="outer">
+    <div class="searchdate">
+        <form action="/getSchedule" method="get">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control dateselect" placeholder="find reservation" aria-label="Recipient's username" aria-describedby="button-addon2" name="datepick" autocomplete="off">
+                <button class="btn btn-outline-dark" type="submit" id="button-addon2">Go</button>
+            </div>
+        </form>
+    </div>
     <div class="row">
         <div class="col-lg-5 mb-5 mb-lg-0">
             <h5 class="mb-4  aos-init aos-animate" data-aos="fade-up" id="headTitle">Schedule</h5>
@@ -132,19 +135,55 @@
 
 <!-- modal -->
 
-<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                <h1 class="modal-title custom-title" id="staticBackdropLabel">Medical Appointment Manager</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                ...
+
+            <div class="modal-body text-center">
+                <form method="get">
+                    <div class="mb-4">
+
+                        <select class="form-select" aria-label="Default select example" id="patientName" name="name">
+                            <option disabled>환자명을 선택하세요</option>
+                            <!-- 옵션들 추가 -->
+                        </select>
+                    </div>
+                    <div class="mb-4">
+
+                        <input type="date" class="form-control" id="reservationDate">
+                    </div>
+                    <div class="mb-4">
+
+                        <select class="form-select" aria-label="Default select example" id="reservationTime" name="time">
+                            <option disabled>예약 시간 선택</option>
+                            <option value="1">09:00~09:30</option>
+                            <option value="2">09:30~10:00</option>
+                            <option value="3">10:00~10:30</option>
+                            <option value="4">10:30~11:00</option>
+                            <option value="5">11:00~11:30</option>
+                            <option value="6">11:30~12:00</option>
+                            <option value="7">13:00~13:30</option>
+                            <option value="8">13:30~14:00</option>
+                            <option value="9">14:00~14:30</option>
+                            <option value="10">14:30~15:00</option>
+                            <option value="11">15:00~15:30</option>
+                            <option value="12">15:30~16:00</option>
+                            <option value="13">16:00~16:30</option>
+                            <option value="14">16:30~17:00</option>
+                            <option value="15">17:00~17:30</option>
+                            <option value="16">17:30~18:00</option>
+                        </select>
+                    </div>
+                </form>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
+                <button type="button" class="btn btn-primary" id="modifyBtn">수정하기</button>
+                <button type="button" class="btn btn-danger" id="deleteBtn">삭제하기</button>
             </div>
         </div>
     </div>
