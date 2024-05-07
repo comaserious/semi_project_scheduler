@@ -139,26 +139,26 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title custom-title" id="staticBackdropLabel">Medical Appointment Manager</h1>
+                <h1 class="modal-title custom-title" id="staticBackdropLabel">Medical Appointment</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body text-center">
-                <form method="get">
+                <form method="post" id="formmer">
                     <div class="mb-4">
 
-                        <select class="form-select" aria-label="Default select example" id="patientName" name="name">
+                        <select class="form-select" aria-label="Default select example" id="patientName" name="projectNo">
                             <option disabled>환자명을 선택하세요</option>
                             <!-- 옵션들 추가 -->
                         </select>
                     </div>
                     <div class="mb-4">
 
-                        <input type="date" class="form-control" id="reservationDate">
+                        <input type="date" class="form-control" id="reservationDate" name="mediDate">
                     </div>
                     <div class="mb-4">
 
-                        <select class="form-select" aria-label="Default select example" id="reservationTime" name="time">
+                        <select class="form-select" aria-label="Default select example" id="reservationTime" name="timeCode">
                             <option disabled>예약 시간 선택</option>
                             <option value="1">09:00~09:30</option>
                             <option value="2">09:30~10:00</option>
@@ -182,8 +182,8 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="modifyBtn">수정하기</button>
-                <button type="button" class="btn btn-danger" id="deleteBtn">삭제하기</button>
+                <button type="button" class="btn btn-primary" id="modifyBtn">Update</button>
+                <button type="button" class="btn btn-danger" id="deleteBtn">Delete</button>
             </div>
         </div>
     </div>

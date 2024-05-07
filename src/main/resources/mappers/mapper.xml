@@ -57,6 +57,7 @@
             i.injury_name,
             p.name,
             p.age,
+            m.medi_code,
             m.medi_date,
             t.time_code,
             t.time_val,
@@ -77,6 +78,10 @@
             a.pm_code = #{pmCode}
         and
             m.medi_date between #{startDay} and #{endDay}
+        and
+            a.project_status='Y'
+        and
+            m.medi_status='Y'
         order by
         m.medi_date
         and
@@ -106,6 +111,30 @@
         join
             injury i on a.injury_code = i.injury_code
         where
-            a.pm_code = #{pmCode};
+            a.pm_code = #{pmCode}
+        and
+            a.project_status='Y'
+        and
+            m.medi_status='Y'
     </select>
+
+    <update id="softDelete" parameterType="int">
+        update
+            medi_info
+        set
+            medi_status ='N'
+        where
+            medi_code = #{mediCode}
+    </update>
+
+    <update id="mediInfoUpdate" parameterType="hashmap">
+        update
+            medi_info
+        set
+            project_no=#{projectNo},
+            medi_date = #{mediDate},
+            time_code = #{timeCode}
+        where
+            medi_code = #{mediCode}
+    </update>
 </mapper>

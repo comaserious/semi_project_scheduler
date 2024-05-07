@@ -8,4 +8,8 @@ public interface Mapper {
     ScheduleDTO findSome(Map<String,Object> param);
 
     List<ProjectDTO> allProjects(String pmCode);
+
+    int softDelete(int mediCode);
+
+    int mediInfoUpdate(Map<String, Object> parameter);
 }

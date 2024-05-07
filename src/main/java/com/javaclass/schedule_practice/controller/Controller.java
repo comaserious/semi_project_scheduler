@@ -4,17 +4,11 @@ import com.javaclass.schedule_practice.model.ProjectDTO;
 import com.javaclass.schedule_practice.model.ScheduleDTO;
 import com.javaclass.schedule_practice.model.Service;
 import jakarta.servlet.http.HttpSession;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.swing.text.DateFormatter;
+import org.springframework.web.bind.annotation.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.HashMap;
@@ -28,10 +22,9 @@ public class Controller {
     @Autowired
     private HttpSession httpSession;
 
-    @GetMapping("/schedule")
-    public void schedule(Model model){
 
-    }
+    @GetMapping("/schedule")
+    public void schedule(){}
 
     @GetMapping(value = "/find")
     public String findSome(@RequestParam String pmCode, Model model, HttpSession session){
@@ -98,6 +91,25 @@ public class Controller {
         String pmCode = (String) ((Map<String,Object>)session.getAttribute("param")).get("pmCode");
 
         return service.allProjects(pmCode);
+    }
+
+    @PostMapping("/delete/{mediCode}")
+    public String delete(@PathVariable int mediCode){
+
+        int result = service.softDelete(mediCode);
+
+        return "redirect:/schedule";
+    }
+
+    @PostMapping("/update/{mediCode}")
+    public String update(@RequestParam Map<String,Object> parameter,@PathVariable int mediCode,HttpSession session){
+
+        parameter.put("mediCode",mediCode);
+
+        int result = service.mediInfoUpdate(parameter);
+
+        String pmCode= ((Map<String,String>)session.getAttribute("param")).get("pmCode");
+        return "redirect:/find?pmCode="+pmCode;
     }
 }
 

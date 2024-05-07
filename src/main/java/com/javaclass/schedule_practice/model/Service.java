@@ -18,4 +18,14 @@ public class Service {
 
         return mapper.allProjects(pmCode);
     }
+
+
+
+    public int softDelete(int mediCode) {
+        return mapper.softDelete(mediCode);
+    }
+
+    public int mediInfoUpdate(Map<String, Object> parameter) {
+        return mapper.mediInfoUpdate(parameter);
+    }
 }

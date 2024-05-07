@@ -15,13 +15,7 @@ const day5 =document.getElementById('day5').firstElementChild;
 const day6 =document.getElementById('day6').firstElementChild;
 const day7 =document.getElementById('day7').firstElementChild;
 
-console.log(day1);
-console.log(day2);
-console.log(day3);
-console.log(day4);
-console.log(day5);
-console.log(day6);
-console.log(day7);
+
 
 fetch("/setSchedule")
 .then(res=>res.json())
@@ -53,25 +47,25 @@ fetch("/setSchedule")
            switch (dayNum){
                case 1:
 
-                   makeSchedule(day1,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
+                   makeSchedule(day1,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate,m.mediCode);
                    break;
                case 2:
-                   makeSchedule(day2,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
+                   makeSchedule(day2,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate,m.mediCode);
                    break;
                case 3:
-                   makeSchedule(day3,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
+                   makeSchedule(day3,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate,m.mediCode);
                    break;
                case 4:
-                   makeSchedule(day4,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
+                   makeSchedule(day4,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate,m.mediCode);
                    break;
                case 5:
-                   makeSchedule(day5,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
+                   makeSchedule(day5,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate,m.mediCode);
                    break;
                case 6:
-                   makeSchedule(day6,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
+                   makeSchedule(day6,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate,m.mediCode);
                    break;
                case 7:
-                   makeSchedule(day7,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate);
+                   makeSchedule(day7,start,end,name,injury,age,m.timeDTO.timeCode,m.mediDate,m.mediCode);
                    break;
            }
 
@@ -86,15 +80,24 @@ fetch("/setSchedule")
         b.addEventListener('click',e=>{
 
             const text = b.firstElementChild.textContent;
-           $patientName.value=text;
+            Array.from($patientName.options).forEach(function (option){
+                if(option.textContent === text){
+                    option.selected='true';
+                }
+            })
             const timeCode = b.classList;
 
             const val = timeCode[1].split("-")[1];
             $time.value=val;
 
             const date = timeCode[2].split("/")[1];
+            doDate(date);
+            const mediCode = timeCode[3].split("-")[1];
             $date.value=date;
+            $delete.style.display='block';
 
+            modiButton(mediCode);
+            deleteButton(mediCode);
         })
     })
 
@@ -111,13 +114,13 @@ function increaseDateByOneDay(dateString) {
 }
 
 
-function makeSchedule(day,start,end,name,injury,age,timeCode,mediDate){
+function makeSchedule(day,start,end,name,injury,age,timeCode,mediDate,mediCode){
     const $ele = document.createElement('li');
     $ele.classList.add('d-flex', 'flex-column', 'flex-md-row', 'py-4');
     $ele.innerHTML=
         `<span class="flex-shrink-0 width-13x me-md-4 d-block mb-3 mb-md-0 small text-black ">${start} - ${end}</span>
              <div class="flex-grow-1 ps-4 border-start border-3" style="color: black">
-                 <button class="button-6 timecode-${timeCode} date/${mediDate}" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: flex; flex-direction: column;">
+                 <button class="button-6 timecode-${timeCode} date/${mediDate} mediCode-${mediCode}" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: flex; flex-direction: column;">
                     <h4>${name}</h4>
                     <p class="mb-0">
                         부상명 : ${injury}<br>
@@ -160,7 +163,64 @@ fetch("/allprojects")
         data.forEach(p=>{
             const $option = document.createElement('option');
             $option.textContent=`${p.patientDTO.name}`;
-            $option.value=`${p.patientDTO.name}`;
+            $option.value=`${p.projectNo}`;
             $patientName.appendChild($option);
         })
     })
+
+const $form = document.getElementById('formmer');
+const $modify = document.getElementById('modifyBtn');
+const $delete = document.getElementById('deleteBtn');
+function modiButton(mediCode) {
+    $modify.addEventListener('click', function () {
+        $form.action = `/update/${mediCode}`;
+        $form.submit();
+    })
+}
+
+
+$date.addEventListener('change',function (){doDate($date.value)})
+
+function cancelLine(option){
+    const text = option.textContent.trim();
+    const newText = `<s>${text}</s>`;
+    console.log(newText);
+    option.innerHTML=newText;
+}
+function deleteButton (mediCode){
+    $delete.addEventListener('click', function () {
+        $form.action =`/delete/${mediCode}`;
+        $form.submit();
+    })
+}
+
+$form.addEventListener('change',e=>{
+    $delete.style.display='none';
+})
+
+function doDate(dating){
+    Array.from($time.options).forEach(function(option){
+        option.disabled=false;
+    })
+    $time[0].disabled=true;
+    let times = [];
+    fetch("/allprojects")
+        .then(res=>res.json())
+        .then(data=>{
+            data.forEach(project=>{
+                project.mediInfoList.forEach(m=>{
+                    if(m.mediDate===dating){
+                        times.push(m.timeCode);
+                    }
+
+                })
+            })
+            if(times!=null){
+                times.forEach(t=>{
+                    const $option = $time.querySelector(`option[value="${t}"]`)
+                    $option.disabled=true;
+                    cancelLine($option);
+                })
+            }
+        })
+}
